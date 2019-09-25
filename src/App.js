@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getCourses } from "./api/courseApi";
 
 function App() {
   // useState returns an array of 2 elements:
   // 1. variable that holds the state
   // 2. setter
-  const [courses, setCourses] = useState();
+  const [courses, setCourses] = useState([]);
+
+  // Runs one time after the component renders
+  useEffect(() => {
+    getCourses().then(_courses => setCourses(_courses));
+  }, []);
 
   function deleteCourse(id) {
     const newCourses = courses.filter(course => course.id !== id);
