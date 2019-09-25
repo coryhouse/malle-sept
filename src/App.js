@@ -4,11 +4,7 @@ function App() {
   // useState returns an array of 2 elements:
   // 1. variable that holds the state
   // 2. setter
-  const [courses, setCourses] = useState([
-    { id: 1, title: "Java" },
-    { id: 2, title: "React" },
-    { id: 3, title: "C#" }
-  ]);
+  const [courses, setCourses] = useState();
 
   function deleteCourse(id) {
     const newCourses = courses.filter(course => course.id !== id);
