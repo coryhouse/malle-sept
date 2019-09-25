@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getCourses } from "./api/courseApi";
+import * as courseApi from "./api/courseApi";
 
 function App() {
   // useState returns an array of 2 elements:
@@ -9,12 +9,14 @@ function App() {
 
   // Runs one time after the component renders
   useEffect(() => {
-    getCourses().then(_courses => setCourses(_courses));
+    courseApi.getCourses().then(_courses => setCourses(_courses));
   }, []);
 
   function deleteCourse(id) {
-    const newCourses = courses.filter(course => course.id !== id);
-    setCourses(newCourses); // This tells React to re-render
+    courseApi.deleteCourse(id).then(() => {
+      const newCourses = courses.filter(course => course.id !== id);
+      setCourses(newCourses); // This tells React to re-render
+    });
   }
 
   function renderCourse(course) {
