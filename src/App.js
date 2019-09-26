@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import * as courseApi from "./api/courseApi";
 
+const newCourse = {
+  id: null,
+  title: ""
+};
+
 function App() {
   // useState returns an array of 2 elements:
   // 1. variable that holds the state
   // 2. setter
   const [courses, setCourses] = useState([]);
+  const [course, setCourse] = useState(newCourse);
 
   // Runs one time after the component renders
   useEffect(() => {
@@ -28,7 +34,38 @@ function App() {
     );
   }
 
-  return <ul>{courses.map(renderCourse)}</ul>;
+  function saveCourse(event) {
+    event.preventDefault(); // don't post back
+    courseApi.addCourse(course).then(savedCourse => {
+      setCourses([...courses, savedCourse]); // copy courses array, and add saved course
+    });
+  }
+
+  function handleTitleChange(event) {
+    const newCourse = { ...course };
+    newCourse.title = event.target.value;
+    setCourse(newCourse);
+  }
+
+  return (
+    <>
+      <form onSubmit={saveCourse}>
+        <h2>Add Course</h2>
+        <div>
+          <label htmlFor="title">Title</label>
+          <br />
+          <input
+            type="text"
+            id="title"
+            onChange={handleTitleChange}
+            value={course.title}
+          ></input>
+        </div>
+        <input type="submit" value="Save Course" />
+      </form>
+      <ul>{courses.map(renderCourse)}</ul>
+    </>
+  );
 }
 
 export default App;
