@@ -3,7 +3,8 @@ import * as courseApi from "./api/courseApi";
 
 const newCourse = {
   id: null,
-  title: ""
+  title: "",
+  category: ""
 };
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
     return (
       <li key={course.id}>
         <button onClick={() => deleteCourse(course.id)}>Delete</button>{" "}
-        {course.title}
+        {course.title} - {course.category}
       </li>
     );
   }
@@ -38,13 +39,13 @@ function App() {
     event.preventDefault(); // don't post back
     courseApi.addCourse(course).then(savedCourse => {
       setCourses([...courses, savedCourse]); // copy courses array, and add saved course
+      setCourse(newCourse); // Reset the form
     });
   }
 
-  function handleTitleChange(event) {
-    const newCourse = { ...course };
-    newCourse.title = event.target.value;
-    setCourse(newCourse);
+  function handleChange(event) {
+    // using computed property syntax to set a property using a variable.
+    setCourse({ ...course, [event.target.name]: event.target.value });
   }
 
   return (
@@ -57,8 +58,20 @@ function App() {
           <input
             type="text"
             id="title"
-            onChange={handleTitleChange}
+            name="title"
+            onChange={handleChange}
             value={course.title}
+          ></input>
+        </div>
+        <div>
+          <label htmlFor="category">Category</label>
+          <br />
+          <input
+            type="text"
+            id="category"
+            name="category"
+            onChange={handleChange}
+            value={course.category}
           ></input>
         </div>
         <input type="submit" value="Save Course" />
