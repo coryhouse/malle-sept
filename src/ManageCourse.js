@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as courseApi from "./api/courseApi";
 import Input from "./Input";
+import { toast } from "react-toastify";
 
 const newCourse = {
   id: null,
@@ -34,6 +35,7 @@ function ManageCourse(props) {
     if (!isValid()) return;
     courseApi.saveCourse(course).then(savedCourse => {
       // Redirect to /courses
+      toast.success("Course saved!");
       props.history.push("/courses");
     });
   }
