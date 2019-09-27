@@ -10,6 +10,7 @@ const newCourse = {
 
 function ManageCourse(props) {
   const [course, setCourse] = useState(newCourse);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const id = props.match.params.id;
@@ -17,8 +18,20 @@ function ManageCourse(props) {
     if (id) courseApi.getCourseById(id).then(_course => setCourse(_course));
   }, [props.match.params.id]);
 
+  function isValid() {
+    const _errors = {};
+
+    if (!course.title) _errors.title = "Title is required.";
+    if (!course.category) _errors.category = "Category is required.";
+
+    setErrors(_errors);
+    // If the errors object still has no properties, then the form is valid.
+    return Object.keys(_errors).length === 0;
+  }
+
   function saveCourse(event) {
     event.preventDefault(); // don't post back
+    if (!isValid()) return;
     courseApi.saveCourse(course).then(savedCourse => {
       // Redirect to /courses
       props.history.push("/courses");
@@ -39,13 +52,16 @@ function ManageCourse(props) {
         name="title"
         onChange={handleChange}
         value={course.title}
+        error={errors.title}
       />
 
       <Input
+        label="Category"
         id="category"
         name="category"
         onChange={handleChange}
         value={course.category}
+        error={errors.category}
       />
 
       <input type="submit" value="Save Course" />

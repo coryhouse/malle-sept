@@ -13,11 +13,13 @@ function Input(props) {
         onChange={props.onChange}
         value={props.value}
       ></input>
+      {props.error && <p style={{ color: "red" }}>{props.error}</p>}
     </div>
   );
 }
 
 Input.propTypes = {
+  error: PropTypes.string,
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
