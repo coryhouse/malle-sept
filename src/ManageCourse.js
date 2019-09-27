@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as courseApi from "./api/courseApi";
+import Input from "./Input";
 
 const newCourse = {
   id: null,
@@ -32,28 +33,21 @@ function ManageCourse(props) {
   return (
     <form onSubmit={saveCourse}>
       <h2>{course.id ? "Edit" : "Add"} Course</h2>
-      <div>
-        <label htmlFor="title">Title</label>
-        <br />
-        <input
-          type="text"
-          id="title"
-          name="title"
-          onChange={handleChange}
-          value={course.title}
-        ></input>
-      </div>
-      <div>
-        <label htmlFor="category">Category</label>
-        <br />
-        <input
-          type="text"
-          id="category"
-          name="category"
-          onChange={handleChange}
-          value={course.category}
-        ></input>
-      </div>
+      <Input
+        label="Title"
+        id="title"
+        name="title"
+        onChange={handleChange}
+        value={course.title}
+      />
+
+      <Input
+        id="category"
+        name="category"
+        onChange={handleChange}
+        value={course.category}
+      />
+
       <input type="submit" value="Save Course" />
     </form>
   );
