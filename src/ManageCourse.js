@@ -16,8 +16,15 @@ function ManageCourse(props) {
   useEffect(() => {
     const id = props.match.params.id;
     // Populate form if editing
-    if (id) courseApi.getCourseById(id).then(_course => setCourse(_course));
-  }, [props.match.params.id]);
+    if (id)
+      courseApi
+        .getCourseById(id)
+        .then(_course => setCourse(_course))
+        .catch(error => {
+          props.history.push("/error");
+          console.error(error);
+        });
+  }, [props.history, props.match.params.id]);
 
   function isValid() {
     const _errors = {};

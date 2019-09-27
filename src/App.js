@@ -5,6 +5,7 @@ import Courses from "./Courses";
 import ManageCourse from "./ManageCourse";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import Error from "./Error";
 
 const activeStyle = {
   color: "orange"
@@ -27,6 +28,7 @@ function App() {
       <Route path="/" component={Home} exact />
       <Route path="/courses" component={Courses} />
       <Route path="/course/:id?" component={ManageCourse} />
+      <Route path="/error" component={Error} />
     </>
   );
 }
