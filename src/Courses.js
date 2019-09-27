@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import * as courseApi from "./api/courseApi";
 
 function Courses() {
@@ -23,12 +24,19 @@ function Courses() {
     return (
       <li key={course.id}>
         <button onClick={() => deleteCourse(course.id)}>Delete</button>{" "}
-        {course.title} - {course.category}
+        <Link to={"/course/" + course.id}>
+          {course.title} - {course.category}
+        </Link>
       </li>
     );
   }
 
-  return <ul>{courses.map(renderCourse)}</ul>;
+  return (
+    <>
+      <Link to="/course">Add Course</Link>
+      <ul>{courses.map(renderCourse)}</ul>
+    </>
+  );
 }
 
 export default Courses;

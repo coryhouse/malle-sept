@@ -5,6 +5,13 @@ export function getCourses() {
   });
 }
 
+export function getCourseById(id) {
+  return fetch("http://localhost:3001/courses/" + id).then(response => {
+    if (response.ok) return response.json();
+    throw new Error("Bad network response");
+  });
+}
+
 export function deleteCourse(id) {
   return fetch("http://localhost:3001/courses/" + id, {
     method: "DELETE"
@@ -14,9 +21,12 @@ export function deleteCourse(id) {
   });
 }
 
-export function addCourse(course) {
-  return fetch("http://localhost:3001/courses", {
-    method: "POST", // write a new record to the database
+export function saveCourse(course) {
+  let url = "http://localhost:3001/courses/";
+  if (course.id) url = url + course.id;
+
+  return fetch(url, {
+    method: course.id ? "PUT" : "POST", // edit record or write new record to the database
     body: JSON.stringify(course),
     headers: {
       "Content-Type": "application/json"
