@@ -43,14 +43,13 @@ function ManageCourse(props) {
     return Object.keys(_errors).length === 0;
   }
 
-  function saveCourse(event) {
+  async function saveCourse(event) {
     event.preventDefault(); // don't post back
     if (!isValid()) return;
-    courseApi.saveCourse(course).then(savedCourse => {
-      // Redirect to /courses
-      toast.success("Course saved!");
-      props.history.push("/courses");
-    });
+    await courseApi.saveCourse(course);
+    // Redirect to /courses
+    toast.success("Course saved!");
+    props.history.push("/courses");
   }
 
   function handleChange(event) {
