@@ -12,6 +12,7 @@ const newCourse = {
 function ManageCourse(props) {
   const [course, setCourse] = useState(newCourse);
   const [errors, setErrors] = useState({});
+  const [throwError, setThrowError] = useState(false);
 
   useEffect(() => {
     const id = props.match.params.id;
@@ -52,8 +53,11 @@ function ManageCourse(props) {
     setCourse({ ...course, [event.target.name]: event.target.value });
   }
 
+  if (throwError) throw new Error("Manage course crashed");
+
   return (
     <form onSubmit={saveCourse}>
+      <button onClick={() => setThrowError(true)}>Throw error</button>
       <h2>{course.id ? "Edit" : "Add"} Course</h2>
       <Input
         label="Title"

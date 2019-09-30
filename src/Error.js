@@ -1,7 +1,17 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-function Error() {
-  return <h1>Sorry, an error occurred. 😞 </h1>;
+function Error(props) {
+  return (
+    <>
+      <h1>Sorry, an error occurred. 😞 </h1>
+      {/* <p>{props.error.message}</p> */}
+    </>
+  );
 }
+
+Error.propTypes = {
+  error: PropTypes.object.isRequired
+};
 
 export default Error;
