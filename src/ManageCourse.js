@@ -15,16 +15,21 @@ function ManageCourse(props) {
   const [throwError, setThrowError] = useState(false);
 
   useEffect(() => {
-    const id = props.match.params.id;
-    // Populate form if editing
-    if (id)
-      courseApi
-        .getCourseById(id)
-        .then(_course => setCourse(_course))
-        .catch(error => {
+    async function init() {
+      const id = props.match.params.id;
+      // Populate form if editing
+      if (id) {
+        try {
+          const _course = await courseApi.getCourseById(id);
+          setCourse(_course);
+        } catch (error) {
           props.history.push("/error");
           console.error(error);
-        });
+        }
+      }
+    }
+
+    init();
   }, [props.history, props.match.params.id]);
 
   function isValid() {
