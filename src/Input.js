@@ -1,19 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Input(props) {
+function Input({ id, label, type, name, onChange, value, ...rest }) {
   return (
     <div>
-      <label htmlFor={props.id}>{props.label}</label>
+      <label htmlFor={id}>{label}</label>
       <br />
       <input
-        type={props.type}
-        id={props.id}
-        name={props.name}
-        onChange={props.onChange}
-        value={props.value}
+        type={type}
+        id={id}
+        name={name}
+        onChange={onChange}
+        value={value}
       ></input>
-      {props.error && <p style={{ color: "red" }}>{props.error}</p>}
+      {rest.error && <p style={{ color: "red" }}>{rest.error}</p>}
     </div>
   );
 }
