@@ -7,7 +7,7 @@ function Input(props) {
       <label htmlFor={props.id}>{props.label}</label>
       <br />
       <input
-        type="text"
+        type={props.type}
         id={props.id}
         name={props.name}
         onChange={props.onChange}
@@ -24,7 +24,12 @@ Input.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  type: PropTypes.oneOf(["text", "phone", "number", "date"]),
   value: PropTypes.string.isRequired
+};
+
+Input.defaultProps = {
+  type: "text"
 };
 
 export default Input;
