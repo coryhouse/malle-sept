@@ -12,6 +12,7 @@ function Input({ id, label, type, name, onChange, value, ...rest }) {
         name={name}
         onChange={onChange}
         value={value}
+        {...rest}
       ></input>
       {rest.error && <p style={{ color: "red" }}>{rest.error}</p>}
     </div>
@@ -19,6 +20,7 @@ function Input({ id, label, type, name, onChange, value, ...rest }) {
 }
 
 Input.propTypes = {
+  disabled: PropTypes.bool,
   error: PropTypes.string,
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
@@ -29,7 +31,8 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
-  type: "text"
+  type: "text",
+  disabled: false
 };
 
 export default Input;

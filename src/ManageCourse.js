@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as courseApi from "./api/courseApi";
 import Input from "./Input";
 import { toast } from "react-toastify";
+import Loading from "./Loading";
 
 const newCourse = {
   id: null,
@@ -13,7 +14,10 @@ function ManageCourse(props) {
   const [course, setCourse] = useState(newCourse);
   const [errors, setErrors] = useState({});
   const [throwError, setThrowError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
 
+  // Runs immediately after render
   useEffect(() => {
     async function init() {
       const id = props.match.params.id;
@@ -21,11 +25,14 @@ function ManageCourse(props) {
       if (id) {
         try {
           const _course = await courseApi.getCourseById(id);
+          setIsLoading(false);
           setCourse(_course);
         } catch (error) {
           props.history.push("/error");
           console.error(error);
         }
+      } else {
+        setIsLoading(false);
       }
     }
 
@@ -46,6 +53,7 @@ function ManageCourse(props) {
   async function saveCourse(event) {
     event.preventDefault(); // don't post back
     if (!isValid()) return;
+    setIsSaving(true); // no need to set to false since redirecting.
     await courseApi.saveCourse(course);
     // Redirect to /courses
     toast.success("Course saved!");
@@ -58,6 +66,7 @@ function ManageCourse(props) {
   }
 
   if (throwError) throw new Error("Manage course crashed");
+  if (isLoading) return <Loading />;
 
   return (
     <form onSubmit={saveCourse}>
@@ -70,6 +79,7 @@ function ManageCourse(props) {
         onChange={handleChange}
         value={course.title}
         error={errors.title}
+        disabled={isSaving}
       />
 
       <Input
@@ -79,9 +89,14 @@ function ManageCourse(props) {
         onChange={handleChange}
         value={course.category}
         error={errors.category}
+        disabled={isSaving}
       />
 
-      <input type="submit" value="Save Course" />
+      <input
+        type="submit"
+        value={isSaving ? "Saving Course" : "Save Course"}
+        disabled={isSaving}
+      />
     </form>
   );
 }

@@ -1,7 +1,64 @@
 {
   "courses": [
-    { "id": 1, "title": "Java" },
-    { "id": 2, "title": "React" },
-    { "id": 3, "title": "C#" }
+    {
+      "id": 1,
+      "title": "Java",
+      "category": "Programming"
+    },
+    {
+      "id": 2,
+      "title": "React",
+      "category": "Programming"
+    },
+    {
+      "id": 3,
+      "title": "C#",
+      "category": "Programming"
+    },
+    {
+      "id": 4,
+      "title": "Python",
+      "category": "Programming"
+    },
+    {
+      "id": 6,
+      "title": "Smalltalk",
+      "category": "Hard"
+    },
+    {
+      "id": 7,
+      "title": "OCaml",
+      "category": "crazy"
+    },
+    {
+      "id": 8,
+      "title": "F#",
+      "category": "Functional"
+    },
+    {
+      "id": 11,
+      "title": "PHP",
+      "category": "Programming"
+    },
+    {
+      "id": 12,
+      "title": "SQL",
+      "category": "Database"
+    },
+    {
+      "id": 13,
+      "title": "UML",
+      "category": "Diagramming"
+    },
+    {
+      "id": 14,
+      "title": "C++",
+      "category": "Programming"
+    },
+    {
+      "id": 15,
+      "title": "sdagdsg",
+      "category": "sdgasdg"
+    }
   ]
 }
