@@ -11,7 +11,7 @@ function Error(props) {
 }
 
 Error.propTypes = {
-  error: PropTypes.object.isRequired
+  error: PropTypes.object
 };
 
 export default Error;
